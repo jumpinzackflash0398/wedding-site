@@ -25,7 +25,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
+    <head
+    >
+      <link rel="stylesheet" href="https://use.typekit.net/thc0lwz.css"/>
+      <title>Zachary and Jamie&#39;s Wedding</title>
+    </head>
+    <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}

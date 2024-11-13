@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function footer() {
     return (
-        <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
+        <footer className="row-start-4 flex pt-4 pb-4 gap-6 flex-wrap items-center justify-center">
             <a
                 className="flex items-center gap-2 hover:underline hover:underline-offset-4"
                 href="https://www.linkedin.com/in/zachary-flynn-936246171"
@@ -32,6 +32,21 @@ export default function footer() {
                     height={16}
                 />
                 YouTube
+            </a>
+            <a
+                className="flex items-center gap-2 hover:underline hover:underline-offset-4"
+                href="mailto:zackjflynn@icloud.com"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                <Image
+                    aria-hidden
+                    src="/email.svg"
+                    alt="Globe icon"
+                    width={16}
+                    height={16}
+                />
+                Issue with the site?
             </a>
             <a
                 className="flex items-center gap-2 hover:underline hover:underline-offset-4"

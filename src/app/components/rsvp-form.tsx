@@ -2,18 +2,31 @@
 import navBar from "@/app/components/nav";
 import footer from "@/app/components/footer";
 import pageHero from "@/app/components/page-hero"
-import React from "react";
+import React, {useState} from "react";
 
 const areaRows:number = 4
 
 const RsvpForm: React.FC = () => {
+    const [nameValue, setNameValue] = useState<string>('');
+    const [emailValue, setEmailValue] = useState<string>('');
+    const [messageValue, setMessageValue] = useState<string>('');
+    const [rsvpStatus, setRsvpStatus] = useState<string>('false')
+    const [plusOneValue, setPlusOneValue] = useState<string>('false')
+
     async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
+        const body = {
+            "name": data.get("name"),
+            "rsvpStatus": data.get("rsvpStatus"),
+            "plusOne": data.get("plusOne"),
+            "email": data.get("email"),
+            "message": data.get("message")
+        }
         try {
             const response = await fetch('http://localhost:3000/api/submit', {
                 method: 'POST',
-                body: JSON.stringify(data),
+                body: JSON.stringify(body),
                 headers: {
                     'content-type': 'application/json'
                 }
@@ -38,10 +51,10 @@ const RsvpForm: React.FC = () => {
             >
                 <form action="../api/submit/route.ts" onSubmit={handleSubmit} className="flex flex-col flex-grow max-w-screen-xl gap-6">
                     <h1 className="font-modernLoveCaps text-3xl">Your Name</h1>
-                    <input type="text" name="name" id="full-name" placeholder="Full Name" required={true} className="p-2.5 w-full h-12 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
+                    <input type="text" name="name" id="full-name" placeholder="Full Name" value={nameValue} onChange={(e) => setNameValue(e.target.value)} required={true} className="p-2.5 w-full h-12 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
                     <h1 className="font-modernLoveCaps text-3xl">Will you be attending Zachary Flynn and Jamie Hunt&#39;s Wedding on October 25, 2025?</h1>
                     <label className="inline-flex items-center cursor-pointer">
-                        <input type="checkbox" id="attending" required={true} className="sr-only peer"/>
+                        <input type="checkbox" name="rsvpStatus" id="attending" required={true} className="sr-only peer" value={rsvpStatus} onChange={(e) => setRsvpStatus(e.target.value)}/>
                         <div
                             className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
                         <span className="ms-3 text-sm text- font-modernLoveCaps text-gray-900 dark:text-gray-300">Yes/No</span>
@@ -49,7 +62,7 @@ const RsvpForm: React.FC = () => {
                     <div className="flex flex-col justify-between">
                         <h1 className="font-modernLoveCaps text-3xl">Will you be bringing a plus one?</h1>
                         <label className="inline-flex items-center cursor-pointer">
-                            <input type="checkbox" id="plusOne" className="sr-only peer"/>
+                            <input name="plusOne" type="checkbox" id="plusOne" className="sr-only peer" value={plusOneValue} onChange={(e) => setPlusOneValue(e.target.value)}/>
                             <div
                                 className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
                             <span
@@ -57,10 +70,10 @@ const RsvpForm: React.FC = () => {
                         </label>
                     </div>
                     <h1 className="font-modernLoveCaps text-3xl">Your Email</h1>
-                    <input type="email" name="email" id="email" placeholder="your.email@domain.com"
+                    <input type="email" name="email" id="email" placeholder="your.email@domain.com" value={emailValue} onChange={(e) => setEmailValue(e.target.value)}
                            className="p-2.5 w-full h-12 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
                     <h1 className="font-modernLoveCaps text-3xl">Any additional comments or questions?</h1>
-                    <textarea name="message" id="message" rows={areaRows}
+                    <textarea name="message" id="message" rows={areaRows} value={messageValue} onChange={(e) => setMessageValue(e.target.value)}
                               className="block p-2.5 w-full text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                               placeholder="Write your thoughts here..."/>
                     <button type="submit"

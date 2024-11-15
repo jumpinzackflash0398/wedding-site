@@ -3,6 +3,7 @@ import navBar from "@/app/components/nav";
 import footer from "@/app/components/footer";
 import pageHero from "@/app/components/page-hero"
 import React, {useState} from "react";
+import {handleGlobalErrors} from "next/dist/client/components/react-dev-overlay/internal/helpers/use-error-handler";
 
 const areaRows:number = 4
 
@@ -32,7 +33,7 @@ const RsvpForm: React.FC = () => {
                 }
             });
             if (!response.ok) {
-                throw new Error(`Invalid response: ${response.status}`);
+                handleGlobalErrors()
             }
             alert('Thanks for contacting us, we will get back to you soon!');
         } catch (err) {
@@ -41,10 +42,12 @@ const RsvpForm: React.FC = () => {
         }
     }
 
+
+
     return (
         <div
             className="flex flex-col justify-between items-stretch min-h-screen sm:[p-2 pl-8 pr-8] font-[family-name:var(--font-geist-sans)]">
-            {navBar()}
+            {navBar("/rsvp")}
             {pageHero("RSVP", "We are delighted to have you on our special day! Please, feel free to leave any additional questions.")}
             <div
                 className="flex flex-grow pr-8 justify-center"

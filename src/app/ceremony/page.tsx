@@ -7,7 +7,7 @@ export default function page() {
     return (
         <div
             className="flex flex-col justify-between items-stretch min-h-screen sm:[p-2 pl-8 pr-8] font-[family-name:var(--font-geist-sans)]">
-            {navBar()}
+            {navBar("/ceremony")}
             {pageHero("Ceremony & Reception", "Our Ceremony and Reception will be held at the Stanley House Inn located at:\n" +
                 "236 Church St, Marietta, GA 30060\n" +
                 "on Saturday, October 25, 2025")}

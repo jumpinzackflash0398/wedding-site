@@ -7,7 +7,7 @@ export default function Home() {
   return (
       <div
           className="flex flex-col justify-between items-stretch min-h-screen sm:[p-2 pl-8 pr-8] font-[family-name:var(--font-geist-sans)]">
-        {navBar()}
+        {navBar("/")}
         {main()}
         {footer()}
       </div>

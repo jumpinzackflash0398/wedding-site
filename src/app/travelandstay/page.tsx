@@ -7,7 +7,7 @@ export default function page() {
     return (
         <div
             className="flex flex-col justify-between items-stretch min-h-screen sm:[p-2 pl-8 pr-8] font-[family-name:var(--font-geist-sans)]">
-            {navBar()}
+            {navBar("/travelandstay")}
             {pageHero("Travel & Stay", "Wedding Party and select attendees will receive accommodations at the Stanley House Inn located at 236 Church St, Marietta, GA 30060.\n" +
                 "However, room is extremely limited, here is a list of nearby hotels at reasonable rates as well as a embedded map to explore the area:")}
             <div

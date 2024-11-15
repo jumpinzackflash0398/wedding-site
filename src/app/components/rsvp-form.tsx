@@ -36,7 +36,8 @@ const RsvpForm: React.FC = () => {
             if (!response.ok) {
                 handleGlobalErrors()
             }
-            alert('Thanks for contacting us, we will get back to you soon!');
+            alert('Thanks for submitting your RSVP! You will be redirected to the "Travel & Stay Page" upon proceeding.');
+            window.location.href = "/travelandstay"
         } catch (err) {
             console.error(err);
             alert("We can't submit the form, try again later?");

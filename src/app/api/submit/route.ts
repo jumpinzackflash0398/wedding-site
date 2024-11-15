@@ -2,11 +2,17 @@
 import pool from '../../db'
 
 export async function POST(req: Request) {
-    const data = await req.json();
-    console.log("body: " + JSON.stringify(data))
+    type Rsvp = {
+        name: string;
+        email: string;
+        rsvpStatus: string;
+        plusOne: string;
+        message: string;
+    }
+    const rsvp:Rsvp = await req.json();
     try {
-        await pool.query('INSERT INTO "formdata" (rawdata) VALUES ($1)', [data])
-        return new Response('', {
+        await pool.query("INSERT INTO formdata (name, email, rsvpstatus, plusone, message) VALUES ($1, $2, $3, $4, $5)", [rsvp.name, rsvp.email, rsvp.rsvpStatus, rsvp.plusOne, rsvp.message])
+        return new Response('Thank You', {
             status: 200,
             headers: {
                 'content-type': 'application/json'

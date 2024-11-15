@@ -11,16 +11,17 @@ const RsvpForm: React.FC = () => {
     const [nameValue, setNameValue] = useState<string>('');
     const [emailValue, setEmailValue] = useState<string>('');
     const [messageValue, setMessageValue] = useState<string>('');
-    const [rsvpStatus, setRsvpStatus] = useState<string>('false')
-    const [plusOneValue, setPlusOneValue] = useState<string>('false')
+    const [rsvpStatus, setRsvpStatus] = useState<boolean>(false)
+    const [plusOneValue, setPlusOneValue] = useState<boolean>(false)
+    console.log("rsvpStatus: ", rsvpStatus)
 
     async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         const body = {
             "name": data.get("name"),
-            "rsvpStatus": data.get("rsvpStatus"),
-            "plusOne": data.get("plusOne"),
+            "rsvpStatus": data.get("rsvpStatus") === 'on' ? 'true' : 'false',
+            "plusOne": data.get("plusOne") === 'on' ? 'true' : 'false',
             "email": data.get("email"),
             "message": data.get("message")
         }
@@ -57,7 +58,7 @@ const RsvpForm: React.FC = () => {
                     <input type="text" name="name" id="full-name" placeholder="Full Name" value={nameValue} onChange={(e) => setNameValue(e.target.value)} required={true} className="p-2.5 w-full h-12 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
                     <h1 className="font-modernLoveCaps text-3xl">Will you be attending Zachary Flynn and Jamie Hunt&#39;s Wedding on October 25, 2025?</h1>
                     <label className="inline-flex items-center cursor-pointer">
-                        <input type="checkbox" name="rsvpStatus" id="attending" required={true} className="sr-only peer" value={rsvpStatus.toString()} onChange={(e) => setRsvpStatus(e.target.value)}/>
+                        <input type="checkbox" name="rsvpStatus" id="attending" className="sr-only peer" checked={rsvpStatus} onChange={(e) => setRsvpStatus(e.target.checked)}/>
                         <div
                             className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
                         <span className="ms-3 text-sm font-modernLoveCaps text-gray-900 dark:text-gray-300">Yes/No</span>
@@ -65,7 +66,7 @@ const RsvpForm: React.FC = () => {
                     <div className="flex flex-col justify-between">
                         <h1 className="font-modernLoveCaps text-3xl">Will you be bringing a plus one?</h1>
                         <label className="inline-flex items-center cursor-pointer">
-                            <input name="plusOne" type="checkbox" id="plusOne" className="sr-only peer" value={plusOneValue.toString()} onChange={(e) => setPlusOneValue(String(e.target.value))}/>
+                            <input name="plusOne" type="checkbox" id="plusOne" className="sr-only peer" checked={plusOneValue} onChange={(e) => setPlusOneValue(e.target.checked)}/>
                             <div
                                 className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
                             <span

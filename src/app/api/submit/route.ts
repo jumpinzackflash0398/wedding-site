@@ -5,7 +5,7 @@ export async function POST(req: Request) {
     const data = await req.json();
     console.log("body: " + JSON.stringify(data))
     try {
-        await pool.query('INSERT INTO "submissions" (Data) VALUES ($1)', [data])
+        await pool.query('INSERT INTO "formdata" (rawdata) VALUES ($1)', [data])
         return new Response('', {
             status: 200,
             headers: {
